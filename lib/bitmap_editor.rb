@@ -15,6 +15,7 @@ class BitmapEditor
         # @image.clear # TODO
         # 'C - Clears the table, setting all pixels to white (O)'
       when 'L'
+        validate_line_l(line)
         # 'L X Y C - Colours the pixel (X,Y) with colour C'
       when 'V'
         # 'V X Y1 Y2 C - Draw a vertical segment of colour C in column X between rows Y1 and Y2 (inclusive).'
@@ -46,6 +47,14 @@ class BitmapEditor
 
   def validate_line_c(line)
     fail_with_error('Unrecognised command', line) unless line =~ /\AC\s*\z/
+  end
+
+  def validate_line_l(line)
+    arguments = line.split
+    fail_with_error('Wrong number of arguments', line) unless arguments.count == 4
+    fail_with_error('Unrecognised command', line) unless arguments[0] == 'L'
+    # TODO: Validate arguments[1] and [2] are within range of @image
+    fail_with_error('Invalid colour', line) unless arguments[3] =~ /\A[A-Z]\z/
   end
 
   def fail_with_error(message, line)
