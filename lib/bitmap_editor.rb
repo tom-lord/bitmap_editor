@@ -11,6 +11,8 @@ class BitmapEditor
         # @image = BitmapImage.new(line) # TODO
         # 'I N M - Create a new M x N image with all pixels coloured white (O)'
       when 'C'
+        validate_line_c(line)
+        # @image.clear # TODO
         # 'C - Clears the table, setting all pixels to white (O)'
       when 'L'
         # 'L X Y C - Colours the pixel (X,Y) with colour C'
@@ -40,6 +42,10 @@ class BitmapEditor
         fail_with_error('Input invalid or out of range (1-250)', line)
       end
     end
+  end
+
+  def validate_line_c(line)
+    fail_with_error('Unrecognised command', line) unless line =~ /\AC\s*\z/
   end
 
   def fail_with_error(message, line)
