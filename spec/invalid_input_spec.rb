@@ -15,7 +15,7 @@ describe 'BitmapEditor#run with invalid input' do
   end
 
   context 'arguments for "I"' do
-    context 'invalid command' do
+    context 'additional characters on command' do
       let(:input_string) { 'Ix 1 1' }
       it { expect { subject }.to output(/Unrecognised command/).to_stderr }
     end
@@ -60,6 +60,18 @@ describe 'BitmapEditor#run with invalid input' do
       it { expect { subject }.to output(/invalid or out of range/).to_stderr }
     end
   end # context 'arguments for "I"'
+
+  context 'arguments for "C"' do
+    context 'additional characters on command' do
+      let(:input_string) { 'Cx' }
+      it { expect { subject }.to output(/Unrecognised command/).to_stderr }
+    end
+
+    context 'more than 1 argument' do
+      let(:input_string) { 'C x' }
+      it { expect { subject }.to output(/Unrecognised command/).to_stderr }
+    end
+  end # context 'arguments for "C"'
 
   # let(:input_string) do
   #   <<~INPUT
