@@ -4,7 +4,7 @@ class BitmapEditor
     return puts 'please provide correct file' if file.nil? || !File.exist?(file)
 
     File.open(file).each do |line|
-      line = line.chomp
+      line.chomp!
       case line[0]
       when 'I'
         validate_line_i(line)
