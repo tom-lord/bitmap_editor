@@ -95,6 +95,28 @@ describe 'BitmapEditor#run with invalid input' do
     end
   end # context 'arguments for "L"'
 
+  context 'arguments for "V"' do
+    context 'additional characters on command' do
+      let(:input_string) { 'Vx 1 1 1 B' }
+      it { expect { subject }.to output(/Unrecognised command/).to_stderr }
+    end
+
+    context 'too many arguments' do
+      let(:input_string) { 'V 1 1 1 B x' }
+      it { expect { subject }.to output(/Wrong number of arguments/).to_stderr }
+    end
+
+    context 'too few arguments' do
+      let(:input_string) { 'V 1 1 1' }
+      it { expect { subject }.to output(/Wrong number of arguments/).to_stderr }
+    end
+
+    context 'not a valid colour (upper case letter)' do
+      let(:input_string) { 'V 1 1 1 xxx' }
+      it { expect { subject }.to output(/Invalid colour/).to_stderr }
+    end
+  end # context 'arguments for "V"'
+
   # let(:input_string) do
   #   <<~INPUT
   #     ...
