@@ -27,6 +27,7 @@ class BitmapEditor
         # @image.change_horizontal(...) # TODO
         # 'H X1 X2 Y C - Draw a horizontal segment of colour C in row Y between columns X1 and X2 (inclusive).'
       when 'S'
+        validate_line_s(line)
         # @image.show # TODO
         # 'Show the contents of the current image'
       else
@@ -77,6 +78,12 @@ class BitmapEditor
     fail_with_error('Unrecognised command', line) unless arguments[0] == 'H'
     # TODO: Validate arguments[1], [2] and [3] are within range of @image
     fail_with_error('Invalid colour', line) unless arguments[4] =~ /\A[A-Z]\z/
+  end
+
+  def validate_line_s(line)
+    arguments = line.split
+    fail_with_error('Wrong number of arguments', line) unless arguments.count == 1
+    fail_with_error('Unrecognised command', line) unless arguments[0] == 'S'
   end
 
   def fail_with_error(message, line)
