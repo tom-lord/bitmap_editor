@@ -30,34 +30,33 @@ describe 'BitmapEditor#run with invalid input' do
       it { expect { subject }.to output(/Wrong number of arguments/).to_stderr }
     end
 
-    context '2nd arg not integer' do
-      let(:input_string) { 'I 1xx 1' }
-      it { expect { subject }.to output(/invalid or out of range/).to_stderr }
-    end
+    [2, 3].each do |number|
+      context "arg ##{number} is not an integer" do
+        let(:input_string) do
+          args = %w[I 1 1]
+          args[number - 1] = '1xx'
+          args.join(' ') # e.g. 'I 1xx 1'
+        end
+        it { expect { subject }.to output(/invalid or out of range/).to_stderr }
+      end
 
-    context '2nd arg less than 1' do
-      let(:input_string) { 'I 0 1' }
-      it { expect { subject }.to output(/invalid or out of range/).to_stderr }
-    end
+      context "arg ##{number} is less than 1" do
+        let(:input_string) do
+          args = %w[I 1 1]
+          args[number - 1] = '0'
+          args.join(' ') # e.g. 'I 0 1'
+        end
+        it { expect { subject }.to output(/invalid or out of range/).to_stderr }
+      end
 
-    context '2nd arg greater than 250' do
-      let(:input_string) { 'I 251 1' }
-      it { expect { subject }.to output(/invalid or out of range/).to_stderr }
-    end
-
-    context '3rd arg not integer' do
-      let(:input_string) { 'I 1 1xx' }
-      it { expect { subject }.to output(/invalid or out of range/).to_stderr }
-    end
-
-    context '3rd arg less than 1' do
-      let(:input_string) { 'I 1 0' }
-      it { expect { subject }.to output(/invalid or out of range/).to_stderr }
-    end
-
-    context '3rd arg greater than 250' do
-      let(:input_string) { 'I 1 251' }
-      it { expect { subject }.to output(/invalid or out of range/).to_stderr }
+      context "arg ##{number} is greater than 250" do
+        let(:input_string) do
+          args = %w[I 1 1]
+          args[number - 1] = '251'
+          args.join(' ') # e.g. 'I 251 1'
+        end
+        it { expect { subject }.to output(/invalid or out of range/).to_stderr }
+      end
     end
   end # context 'arguments for "I"'
 
