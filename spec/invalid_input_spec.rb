@@ -139,6 +139,18 @@ describe 'BitmapEditor#run with invalid input' do
     end
   end # context 'arguments for "H"'
 
+  context 'arguments for "S"' do
+    context 'additional characters on command' do
+      let(:input_string) { 'Sx' }
+      it { expect { subject }.to output(/Unrecognised command/).to_stderr }
+    end
+
+    context 'more than 1 argument' do
+      let(:input_string) { 'S x' }
+      it { expect { subject }.to output(/Wrong number of arguments/).to_stderr }
+    end
+  end # context 'arguments for "S"'
+
   # let(:input_string) do
   #   <<~INPUT
   #     ...
