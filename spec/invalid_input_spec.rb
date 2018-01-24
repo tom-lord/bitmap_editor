@@ -9,6 +9,12 @@ describe 'BitmapEditor#run with invalid input' do
     end
   end
 
+  def command_mutator(command, number_to_change, change_value)
+    args = command.split
+    args[number_to_change - 1] = change_value
+    args.join(' ')
+  end
+
   context 'invalid command' do
     let(:input_string) { 'banana' }
     it { expect { subject }.to output(/Unrecognised command/).to_stderr }
@@ -33,27 +39,21 @@ describe 'BitmapEditor#run with invalid input' do
     [2, 3].each do |number|
       context "arg ##{number} is not an integer" do
         let(:input_string) do
-          args = %w[I 1 1]
-          args[number - 1] = '1xx'
-          args.join(' ') # e.g. 'I 1xx 1'
+          command_mutator('I 1 1', number, '1xx')
         end
         it { expect { subject }.to output(/invalid or out of range/).to_stderr }
       end
 
       context "arg ##{number} is less than 1" do
         let(:input_string) do
-          args = %w[I 1 1]
-          args[number - 1] = '0'
-          args.join(' ') # e.g. 'I 0 1'
+          command_mutator('I 1 1', number, '0')
         end
         it { expect { subject }.to output(/invalid or out of range/).to_stderr }
       end
 
       context "arg ##{number} is greater than 250" do
         let(:input_string) do
-          args = %w[I 1 1]
-          args[number - 1] = '251'
-          args.join(' ') # e.g. 'I 251 1'
+          command_mutator('I 1 1', number, '251')
         end
         it { expect { subject }.to output(/invalid or out of range/).to_stderr }
       end
