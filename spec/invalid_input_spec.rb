@@ -227,4 +227,8 @@ describe 'BitmapEditor#run with invalid input' do
     end
   end # context 'arguments for "S"'
 
+  context 'file doe snot start with I command' do
+    let(:input_string) { 'S' }
+    it { expect { subject }.to output(/First command must be "I"/).to_stderr }
+  end
 end
