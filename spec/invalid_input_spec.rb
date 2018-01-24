@@ -9,7 +9,7 @@ describe 'BitmapEditor#run with invalid input' do
     end
   end
   # Note: All files must start with I command
-  # therefore each of these tests is for the SECOND line in the file
+  # therefore most of these tests is for the SECOND line in the file
   let(:input_string) do
     <<~INPUT
       I 250 250
@@ -227,7 +227,7 @@ describe 'BitmapEditor#run with invalid input' do
     end
   end # context 'arguments for "S"'
 
-  context 'file doe snot start with I command' do
+  context 'file does not start with I command' do
     let(:input_string) { 'S' }
     it { expect { subject }.to output(/First command must be "I"/).to_stderr }
   end
