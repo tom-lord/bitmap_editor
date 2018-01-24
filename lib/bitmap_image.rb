@@ -13,4 +13,8 @@ class BitmapImage
   def show
     data.each { |row| puts row.join(' ') }
   end
+
+  def change_pixel(x, y, colour)
+    @data[y - 1][x - 1] = colour
+  end
 end
