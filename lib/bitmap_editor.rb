@@ -1,3 +1,4 @@
+require 'bitmap_image'
 class BitmapEditor
   InvalidInputError = Class.new(StandardError)
   def run(file)
@@ -9,7 +10,7 @@ class BitmapEditor
       case line[0]
       when 'I'
         validate_line_i(line)
-        # @image = BitmapImage.new(line) # TODO
+        @image = BitmapImage.new(*line.split[1..-1])
         # 'I N M - Create a new M x N image with all pixels coloured white (O)'
       when 'C'
         validate_line_c(line)
@@ -29,7 +30,7 @@ class BitmapEditor
         # 'H X1 X2 Y C - Draw a horizontal segment of colour C in row Y between columns X1 and X2 (inclusive).'
       when 'S'
         validate_line_s(line)
-        # @image.show # TODO
+        @image.show
         # 'Show the contents of the current image'
       else
         fail_with_error('Unrecognised command', line)
