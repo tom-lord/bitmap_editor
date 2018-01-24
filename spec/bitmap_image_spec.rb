@@ -26,4 +26,16 @@ describe 'BitmapImage' do
       ).to_stdout
     end
   end
+
+  describe '#change_pixel' do
+    it 'prints the bitmap to stdout' do
+      subject.change_pixel(2, 1, 'X')
+      expect(subject.data).to eq(
+        [
+          %w[O X O],
+          %w[O O O]
+        ]
+      )
+    end
+  end
 end
