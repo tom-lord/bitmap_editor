@@ -92,6 +92,29 @@ describe 'BitmapEditor#run with invalid input' do
       let(:input_string) { 'L 1 1 xxx' }
       it { expect { subject }.to output(/Invalid colour/).to_stderr }
     end
+
+    [2, 3].each do |number|
+      context "arg ##{number} is not an integer" do
+        let(:input_string) do
+          command_mutator('L 1 1 B', number, '1xx')
+        end
+        it { expect { subject }.to output(/invalid or out of range/).to_stderr }
+      end
+
+      context "arg ##{number} is less than 1" do
+        let(:input_string) do
+          command_mutator('L 1 1 B', number, '0')
+        end
+        it { expect { subject }.to output(/invalid or out of range/).to_stderr }
+      end
+
+      context "arg ##{number} is greater than 250" do
+        let(:input_string) do
+          command_mutator('L 1 1 B', number, '251')
+        end
+        it { expect { subject }.to output(/invalid or out of range/).to_stderr }
+      end
+    end
   end # context 'arguments for "L"'
 
   context 'arguments for "V"' do
@@ -114,6 +137,29 @@ describe 'BitmapEditor#run with invalid input' do
       let(:input_string) { 'V 1 1 1 xxx' }
       it { expect { subject }.to output(/Invalid colour/).to_stderr }
     end
+
+    [2, 3, 4].each do |number|
+      context "arg ##{number} is not an integer" do
+        let(:input_string) do
+          command_mutator('V 1 1 1 B', number, '1xx')
+        end
+        it { expect { subject }.to output(/invalid or out of range/).to_stderr }
+      end
+
+      context "arg ##{number} is less than 1" do
+        let(:input_string) do
+          command_mutator('V 1 1 1 B', number, '0')
+        end
+        it { expect { subject }.to output(/invalid or out of range/).to_stderr }
+      end
+
+      context "arg ##{number} is greater than 250" do
+        let(:input_string) do
+          command_mutator('V 1 1 1 B', number, '251')
+        end
+        it { expect { subject }.to output(/invalid or out of range/).to_stderr }
+      end
+    end
   end # context 'arguments for "V"'
 
   context 'arguments for "H"' do
@@ -135,6 +181,29 @@ describe 'BitmapEditor#run with invalid input' do
     context 'not a valid colour (upper case letter)' do
       let(:input_string) { 'H 1 1 1 xxx' }
       it { expect { subject }.to output(/Invalid colour/).to_stderr }
+    end
+
+    [2, 3, 4].each do |number|
+      context "arg ##{number} is not an integer" do
+        let(:input_string) do
+          command_mutator('H 1 1 1 B', number, '1xx')
+        end
+        it { expect { subject }.to output(/invalid or out of range/).to_stderr }
+      end
+
+      context "arg ##{number} is less than 1" do
+        let(:input_string) do
+          command_mutator('H 1 1 1 B', number, '0')
+        end
+        it { expect { subject }.to output(/invalid or out of range/).to_stderr }
+      end
+
+      context "arg ##{number} is greater than 250" do
+        let(:input_string) do
+          command_mutator('H 1 1 1 B', number, '251')
+        end
+        it { expect { subject }.to output(/invalid or out of range/).to_stderr }
+      end
     end
   end # context 'arguments for "H"'
 
