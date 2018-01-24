@@ -3,8 +3,9 @@ class BitmapEditor
   def run(file)
     return puts 'please provide correct file' if file.nil? || !File.exist?(file)
 
-    File.open(file).each do |line|
+    File.open(file).each_with_index do |line, index|
       line.chomp!
+      fail_with_error('First command must be "I"', line) if index.zero? && line[0] != 'I'
       case line[0]
       when 'I'
         validate_line_i(line)
@@ -34,7 +35,6 @@ class BitmapEditor
         fail_with_error('Unrecognised command', line)
       end
     end
-
   rescue InvalidInputError => e
     warn(e)
   end
