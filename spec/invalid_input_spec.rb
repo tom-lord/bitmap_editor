@@ -69,7 +69,7 @@ describe 'BitmapEditor#run with invalid input' do
 
     context 'more than 1 argument' do
       let(:input_string) { 'C x' }
-      it { expect { subject }.to output(/Unrecognised command/).to_stderr }
+      it { expect { subject }.to output(/Wrong number of arguments/).to_stderr }
     end
   end # context 'arguments for "C"'
 
