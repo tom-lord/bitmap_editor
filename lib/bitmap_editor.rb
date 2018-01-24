@@ -23,6 +23,7 @@ class BitmapEditor
         # @image.change_vertical(...) # TODO
         # 'V X Y1 Y2 C - Draw a vertical segment of colour C in column X between rows Y1 and Y2 (inclusive).'
       when 'H'
+        validate_line_h(line)
         # @image.change_horizontal(...) # TODO
         # 'H X1 X2 Y C - Draw a horizontal segment of colour C in row Y between columns X1 and X2 (inclusive).'
       when 'S'
@@ -66,6 +67,14 @@ class BitmapEditor
     arguments = line.split
     fail_with_error('Wrong number of arguments', line) unless arguments.count == 5
     fail_with_error('Unrecognised command', line) unless arguments[0] == 'V'
+    # TODO: Validate arguments[1], [2] and [3] are within range of @image
+    fail_with_error('Invalid colour', line) unless arguments[4] =~ /\A[A-Z]\z/
+  end
+
+  def validate_line_h(line)
+    arguments = line.split
+    fail_with_error('Wrong number of arguments', line) unless arguments.count == 5
+    fail_with_error('Unrecognised command', line) unless arguments[0] == 'H'
     # TODO: Validate arguments[1], [2] and [3] are within range of @image
     fail_with_error('Invalid colour', line) unless arguments[4] =~ /\A[A-Z]\z/
   end
