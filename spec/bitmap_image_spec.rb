@@ -28,11 +28,31 @@ describe 'BitmapImage' do
   end
 
   describe '#change_pixel' do
-    it 'prints the bitmap to stdout' do
+    it 'changes the specified pixel in data' do
       subject.change_pixel(2, 1, 'X')
       expect(subject.data).to eq(
         [
           %w[O X O],
+          %w[O O O]
+        ]
+      )
+    end
+  end
+
+  describe '#clear' do
+    it 'resets the data to white (same dimensions)' do
+      subject.change_pixel(2, 1, 'X')
+      expect(subject.data).not_to eq(
+        [
+          %w[O O O],
+          %w[O O O]
+        ]
+      )
+
+      subject.clear
+      expect(subject.data).to eq(
+        [
+          %w[O O O],
           %w[O O O]
         ]
       )
