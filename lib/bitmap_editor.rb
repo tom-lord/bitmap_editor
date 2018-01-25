@@ -59,7 +59,8 @@ class BitmapEditor
       end
     end
     fail_with_error('Invalid colour', line) unless arguments[3] =~ /\A[A-Z]\z/
-    # TODO: Validate arguments[1] and [2] are within range of @image
+    fail_with_error('Outside current canvas', line) if arguments[1].to_i > @image.width
+    fail_with_error('Outside current canvas', line) if arguments[2].to_i > @image.height
   end
 
   def validate_line_v(line)
