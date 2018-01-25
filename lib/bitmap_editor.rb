@@ -19,10 +19,10 @@ class BitmapEditor
         @image.change_pixel(*line.split[1..-1])
       when 'V' # V X Y1 Y2 C - Draw a vertical segment of colour C in column X between rows Y1 and Y2 (inclusive).
         validate_line_v(line)
-        # @image.change_vertical(...) # TODO
+        @image.change_vertical(*line.split[1..-1])
       when 'H' # H X1 X2 Y C - Draw a horizontal segment of colour C in row Y between columns X1 and X2 (inclusive).
         validate_line_h(line)
-        # @image.change_horizontal(...) # TODO
+        @image.change_horizontal(*line.split[1..-1])
       when 'S' # S - Show the contents of the current image
         validate_line_s(line)
         @image.show
@@ -72,8 +72,8 @@ class BitmapEditor
       end
     end
     fail_with_error('Invalid colour', line) unless arguments[4] =~ /\A[A-Z]\z/
-    fail_with_error('Outside current canvas', line) if arguments[1].to_i > @image.height
-    fail_with_error('Outside current canvas', line) if arguments[3].to_i > @image.width
+    fail_with_error('Outside current canvas', line) if arguments[1].to_i > @image.width
+    fail_with_error('Outside current canvas', line) if arguments[3].to_i > @image.height
     fail_with_error('Invalid range', line) if arguments[2].to_i > arguments[3].to_i
   end
 
@@ -86,8 +86,8 @@ class BitmapEditor
       end
     end
     fail_with_error('Invalid colour', line) unless arguments[4] =~ /\A[A-Z]\z/
-    fail_with_error('Outside current canvas', line) if arguments[1].to_i > @image.width
-    fail_with_error('Outside current canvas', line) if arguments[3].to_i > @image.height
+    fail_with_error('Outside current canvas', line) if arguments[1].to_i > @image.height
+    fail_with_error('Outside current canvas', line) if arguments[3].to_i > @image.width
     fail_with_error('Invalid range', line) if arguments[2].to_i > arguments[3].to_i
   end
 
