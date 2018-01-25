@@ -1,4 +1,4 @@
-require 'bitmap_image'
+require_relative 'bitmap_image'
 class BitmapEditor
   InvalidInputError = Class.new(StandardError)
   def run(file)
