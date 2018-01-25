@@ -65,4 +65,38 @@ describe 'BitmapEditor#run with invalid input' do
     end
     run_valid_output_spec
   end
+
+  context 'initialize, change vertical and show' do
+    let(:input_string) do
+      <<~INPUT
+        I 2 3
+        V 3 1 2 X
+        S
+      INPUT
+    end
+    let(:expected_output) do
+      <<~OUTPUT
+        O O X
+        O O X
+      OUTPUT
+    end
+    run_valid_output_spec
+  end
+
+  context 'initialize, change horizontal and show' do
+    let(:input_string) do
+      <<~INPUT
+        I 2 3
+        H 2 2 3 X
+        S
+      INPUT
+    end
+    let(:expected_output) do
+      <<~OUTPUT
+        O O O
+        O X X
+      OUTPUT
+    end
+    run_valid_output_spec
+  end
 end
