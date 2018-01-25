@@ -14,11 +14,11 @@ class BitmapEditor
         # 'I N M - Create a new M x N image with all pixels coloured white (O)'
       when 'C'
         validate_line_c(line)
-        # @image.clear # TODO
+        @image.clear
         # 'C - Clears the table, setting all pixels to white (O)'
       when 'L'
         validate_line_l(line)
-        # @image.change_pixel(...) # TODO
+        @image.change_pixel(*line.split[1..-1])
         # 'L X Y C - Colours the pixel (X,Y) with colour C'
       when 'V'
         validate_line_v(line)

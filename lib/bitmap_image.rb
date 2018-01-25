@@ -15,6 +15,6 @@ class BitmapImage
   end
 
   def change_pixel(x, y, colour)
-    @data[y - 1][x - 1] = colour
+    @data[y.to_i - 1][x.to_i - 1] = colour
   end
 end
