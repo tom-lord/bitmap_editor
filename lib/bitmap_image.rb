@@ -1,13 +1,13 @@
 class BitmapImage
   attr_reader :height, :width, :data
   def initialize(height, width)
-    @height = height
-    @width = width
+    @height = height.to_i
+    @width = width.to_i
     clear
   end
 
   def clear
-    @data = Array.new(height.to_i) { Array.new(width.to_i) { 'O' } }
+    @data = Array.new(height) { Array.new(width) { 'O' } }
   end
 
   def show
