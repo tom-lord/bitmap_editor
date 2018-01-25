@@ -123,6 +123,16 @@ describe 'BitmapEditor#run with invalid input' do
         it { expect { subject }.to output(/invalid or out of range/).to_stderr }
       end
     end
+
+    context 'x coordinate outside current canvas' do
+      let(:test_input_line) { 'L 11 1 B' }
+      it { expect { subject }.to output(/Outside current canvas/).to_stderr }
+    end
+
+    context 'y coordinate outside current canvas' do
+      let(:test_input_line) { 'L 1 11 B' }
+      it { expect { subject }.to output(/Outside current canvas/).to_stderr }
+    end
   end # context 'arguments for "L"'
 
   context 'arguments for "V"' do
@@ -169,12 +179,12 @@ describe 'BitmapEditor#run with invalid input' do
       end
     end
 
-    context 'x coordinate outside current image' do
+    context 'x coordinate outside current canvas' do
       let(:test_input_line) { 'V 11 1 1 B' }
       it { expect { subject }.to output(/Outside current canvas/).to_stderr }
     end
 
-    context 'y2 coordinate outside current image' do
+    context 'y2 coordinate outside current canvas' do
       let(:test_input_line) { 'V 1 1 11 B' }
       it { expect { subject }.to output(/Outside current canvas/).to_stderr }
     end
@@ -229,12 +239,12 @@ describe 'BitmapEditor#run with invalid input' do
       end
     end
 
-    context 'y coordinate outside current image' do
+    context 'y coordinate outside current canvas' do
       let(:test_input_line) { 'H 11 1 1 B' }
       it { expect { subject }.to output(/Outside current canvas/).to_stderr }
     end
 
-    context 'x2 coordinate outside current image' do
+    context 'x2 coordinate outside current canvas' do
       let(:test_input_line) { 'H 1 1 11 B' }
       it { expect { subject }.to output(/Outside current canvas/).to_stderr }
     end
