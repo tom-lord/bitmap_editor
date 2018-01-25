@@ -47,4 +47,22 @@ describe 'BitmapEditor#run with invalid input' do
     end
     run_valid_output_spec
   end
+
+  context 'initialize, change pixel, clear and show' do
+    let(:input_string) do
+      <<~INPUT
+        I 2 3
+        L 2 1 X
+        C
+        S
+      INPUT
+    end
+    let(:expected_output) do
+      <<~OUTPUT
+        O O O
+        O O O
+      OUTPUT
+    end
+    run_valid_output_spec
+  end
 end
