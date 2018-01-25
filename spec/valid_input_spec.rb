@@ -9,6 +9,12 @@ describe 'BitmapEditor#run with invalid input' do
     end
   end
 
+  def self.run_valid_output_spec
+    it 'prints expected output to stdout' do
+      expect { subject }.to output(expected_output).to_stdout
+    end
+  end
+
   context 'initialize and show' do
     let(:input_string) do
       <<~INPUT
@@ -22,9 +28,6 @@ describe 'BitmapEditor#run with invalid input' do
         O O O
       OUTPUT
     end
-
-    it 'prints expected output to stdout' do
-      expect { subject }.to output(expected_output).to_stdout
-    end
+    run_valid_output_spec
   end
 end
