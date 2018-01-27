@@ -31,6 +31,10 @@ module Commands
       fail_with_error('Invalid colour') unless colour =~ /\A[A-Z]\z/
     end
 
+    def validate_within_canvas(max_width, max_height)
+      fail_with_error('Outside current canvas') if max_width.to_i > @image.width || max_height.to_i > @image.height
+    end
+
     def arguments
       @arguments ||= line.split
     end
