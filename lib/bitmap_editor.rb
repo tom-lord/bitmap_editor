@@ -1,6 +1,48 @@
 require_relative 'bitmap_image'
+module Comands
+  class Base
+    def initialize(line, image)
+      @line = line
+      @image = image
+    end
+
+    def call
+      validate
+      update_image
+      @image
+    end
+
+    protected
+
+    def validate(command:, arg_count:)
+      fail_with_error('Unrecognised command') unless arguments[0] == command
+      fail_with_error('Wrong number of arguments') unless arguments.count == arg_count
+    end
+
+    def arguments
+      @arguments ||= @line.split
+    end
+
+    def fail_with_error(message)
+      raise(InvalidInputError, "ERROR - #{message}: '#{@line}'")
+    end
+  end
+
+  class Clear < Base
+    private
+
+    def validate
+      super(command: 'C', arg_count: 1)
+    end
+
+    def update_image
+      @image.clear
+    end
+  end
+end
+
+InvalidInputError = Class.new(StandardError)
 class BitmapEditor
-  InvalidInputError = Class.new(StandardError)
   MAX_DIMENSION = 250
   def run(file)
     return puts 'please provide correct file' if file.nil? || !File.exist?(file)
@@ -13,8 +55,9 @@ class BitmapEditor
         validate_line_i(line)
         @image = BitmapImage.new(*line.split[1..-1])
       when 'C' # C - Clears the table, setting all pixels to white (O)
-        validate_line_c(line)
-        @image.clear
+        @image = Comands::Clear.new(line, @image).call
+        # validate_line_c(line)
+        # @image.clear
       when 'L' # 'L X Y C - Colours the pixel (X,Y) with colour C'
         validate_line_l(line)
         @image.change_pixel(*line.split[1..-1])
