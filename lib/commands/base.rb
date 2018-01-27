@@ -19,6 +19,14 @@ module Commands
       fail_with_error('Wrong number of arguments') unless arguments.count == arg_count
     end
 
+    def validate_coordinates(*coordinates)
+      coordinates.each do |coordinate|
+        unless coordinate =~ /\A\d{1,3}\z/ && coordinate.to_i.between?(1, BitmapEditor::MAX_DIMENSION)
+          fail_with_error("Input invalid or out of range (1-#{BitmapEditor::MAX_DIMENSION})")
+        end
+      end
+    end
+
     def arguments
       @arguments ||= line.split
     end
