@@ -1,45 +1,6 @@
 require_relative 'bitmap_image'
-module Comands
-  class Base
-    def initialize(line, image)
-      @line = line
-      @image = image
-    end
-
-    def call
-      validate
-      update_image
-      @image
-    end
-
-    protected
-
-    def validate(command:, arg_count:)
-      fail_with_error('Unrecognised command') unless arguments[0] == command
-      fail_with_error('Wrong number of arguments') unless arguments.count == arg_count
-    end
-
-    def arguments
-      @arguments ||= @line.split
-    end
-
-    def fail_with_error(message)
-      raise(InvalidInputError, "ERROR - #{message}: '#{@line}'")
-    end
-  end
-
-  class Clear < Base
-    private
-
-    def validate
-      super(command: 'C', arg_count: 1)
-    end
-
-    def update_image
-      @image.clear
-    end
-  end
-end
+require_relative 'commands/base'
+require_relative 'commands/clear'
 
 InvalidInputError = Class.new(StandardError)
 class BitmapEditor
@@ -55,9 +16,7 @@ class BitmapEditor
         validate_line_i(line)
         @image = BitmapImage.new(*line.split[1..-1])
       when 'C' # C - Clears the table, setting all pixels to white (O)
-        @image = Comands::Clear.new(line, @image).call
-        # validate_line_c(line)
-        # @image.clear
+        @image = Commands::Clear.new(line, @image).call
       when 'L' # 'L X Y C - Colours the pixel (X,Y) with colour C'
         validate_line_l(line)
         @image.change_pixel(*line.split[1..-1])
@@ -88,10 +47,6 @@ class BitmapEditor
         fail_with_error("Input invalid or out of range (1-#{MAX_DIMENSION})", line)
       end
     end
-  end
-
-  def validate_line_c(line)
-    shared_validations(line, command: 'C', arg_count: 1)
   end
 
   def validate_line_l(line)
