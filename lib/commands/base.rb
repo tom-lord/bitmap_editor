@@ -27,6 +27,10 @@ module Commands
       end
     end
 
+    def validate_colour(colour)
+      fail_with_error('Invalid colour') unless colour =~ /\A[A-Z]\z/
+    end
+
     def arguments
       @arguments ||= line.split
     end

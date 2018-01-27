@@ -5,7 +5,7 @@ module Commands
     def validate
       super(command: 'L', arg_count: 4)
       validate_coordinates(*arguments[1..2])
-      fail_with_error('Invalid colour') unless arguments[3] =~ /\A[A-Z]\z/
+      validate_colour(arguments[3])
       fail_with_error('Outside current canvas') if arguments[1].to_i > @image.width
       fail_with_error('Outside current canvas') if arguments[2].to_i > @image.height
     end
