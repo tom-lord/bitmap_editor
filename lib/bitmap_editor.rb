@@ -1,5 +1,6 @@
 require_relative 'bitmap_image'
 require_relative 'commands/base'
+require_relative 'commands/change_pixel'
 require_relative 'commands/clear'
 require_relative 'commands/init'
 
@@ -18,8 +19,7 @@ class BitmapEditor
       when 'C' # C - Clears the table, setting all pixels to white (O)
         @image = Commands::Clear.new(line, @image).call
       when 'L' # 'L X Y C - Colours the pixel (X,Y) with colour C'
-        validate_line_l(line)
-        @image.change_pixel(*line.split[1..-1])
+        @image = Commands::ChangePixel.new(line, @image).call
       when 'V' # V X Y1 Y2 C - Draw a vertical segment of colour C in column X between rows Y1 and Y2 (inclusive).
         validate_line_v(line)
         @image.change_vertical(*line.split[1..-1])
@@ -38,24 +38,6 @@ class BitmapEditor
   end
 
   private
-
-  def validate_line_i(line)
-    shared_validations(line, command: 'I', arg_count: 3)
-    arguments = line.split
-  end
-
-  def validate_line_l(line)
-    shared_validations(line, command: 'L', arg_count: 4)
-    arguments = line.split
-    arguments[1..2].each do |coordinate|
-      unless coordinate =~ /\A\d{1,3}\z/ && coordinate.to_i.between?(1, MAX_DIMENSION)
-        fail_with_error("Input invalid or out of range (1-#{MAX_DIMENSION})", line)
-      end
-    end
-    fail_with_error('Invalid colour', line) unless arguments[3] =~ /\A[A-Z]\z/
-    fail_with_error('Outside current canvas', line) if arguments[1].to_i > @image.width
-    fail_with_error('Outside current canvas', line) if arguments[2].to_i > @image.height
-  end
 
   def validate_line_v(line)
     shared_validations(line, command: 'V', arg_count: 5)
