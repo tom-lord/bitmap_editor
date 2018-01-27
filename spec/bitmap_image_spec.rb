@@ -73,7 +73,7 @@ describe 'BitmapImage' do
 
   describe '#change_horizontal' do
     it 'updates pixels in horizontal selection' do
-      subject.change_horizontal(2, 2, 3, 'X')
+      subject.change_horizontal(2, 3, 2, 'X')
       expect(subject.data).to eq(
         [
           %w[O O O],

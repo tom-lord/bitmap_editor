@@ -240,17 +240,17 @@ describe 'BitmapEditor#run with invalid input' do
     end
 
     context 'y coordinate outside current canvas' do
-      let(:test_input_line) { 'H 11 1 1 B' }
-      it { expect { subject }.to output(/Outside current canvas/).to_stderr }
-    end
-
-    context 'x2 coordinate outside current canvas' do
       let(:test_input_line) { 'H 1 1 11 B' }
       it { expect { subject }.to output(/Outside current canvas/).to_stderr }
     end
 
+    context 'x2 coordinate outside current canvas' do
+      let(:test_input_line) { 'H 1 11 1 B' }
+      it { expect { subject }.to output(/Outside current canvas/).to_stderr }
+    end
+
     context 'x1 coordinate greater than x2' do
-      let(:test_input_line) { 'H 1 2 1 B' }
+      let(:test_input_line) { 'H 2 1 1 B' }
       it { expect { subject }.to output(/Invalid range/).to_stderr }
     end
   end # context 'arguments for "H"'

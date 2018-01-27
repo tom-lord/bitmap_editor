@@ -24,7 +24,7 @@ class BitmapImage
     end
   end
 
-  def change_horizontal(row, column_start, column_end, colour)
+  def change_horizontal(column_start, column_end, row, colour)
     (column_start.to_i..column_end.to_i).each do |column|
       change_pixel(column, row.to_i, colour)
     end

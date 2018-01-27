@@ -87,7 +87,7 @@ describe 'BitmapEditor#run with invalid input' do
     let(:input_string) do
       <<~INPUT
         I 2 3
-        H 2 2 3 X
+        H 2 3 2 X
         S
       INPUT
     end
