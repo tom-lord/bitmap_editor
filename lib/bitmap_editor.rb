@@ -3,6 +3,7 @@ require_relative 'commands/base'
 require_relative 'commands/change_pixel'
 require_relative 'commands/clear'
 require_relative 'commands/init'
+require_relative 'commands/horizontal'
 require_relative 'commands/vertical'
 
 class BitmapEditor
@@ -24,8 +25,7 @@ class BitmapEditor
       when 'V' # V X Y1 Y2 C - Draw a vertical segment of colour C in column X between rows Y1 and Y2 (inclusive).
         @image = Commands::Vertical.new(line, @image).call
       when 'H' # H X1 X2 Y C - Draw a horizontal segment of colour C in row Y between columns X1 and X2 (inclusive).
-        validate_line_h(line)
-        @image.change_horizontal(*line.split[1..-1])
+        @image = Commands::Horizontal.new(line, @image).call
       when 'S' # S - Show the contents of the current image
         validate_line_s(line)
         @image.show
@@ -38,20 +38,6 @@ class BitmapEditor
   end
 
   private
-
-  def validate_line_h(line)
-    shared_validations(line, command: 'H', arg_count: 5)
-    arguments = line.split
-    arguments[1..3].each do |coordinate|
-      unless coordinate =~ /\A\d{1,3}\z/ && coordinate.to_i.between?(1, MAX_DIMENSION)
-        fail_with_error("Input invalid or out of range (1-#{MAX_DIMENSION})", line)
-      end
-    end
-    fail_with_error('Invalid colour', line) unless arguments[4] =~ /\A[A-Z]\z/
-    fail_with_error('Outside current canvas', line) if arguments[1].to_i > @image.height
-    fail_with_error('Outside current canvas', line) if arguments[3].to_i > @image.width
-    fail_with_error('Invalid range', line) if arguments[2].to_i > arguments[3].to_i
-  end
 
   def validate_line_s(line)
     shared_validations(line, command: 'S', arg_count: 1)
