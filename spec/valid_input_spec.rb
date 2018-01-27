@@ -24,8 +24,8 @@ describe 'BitmapEditor#run with invalid input' do
     end
     let(:expected_output) do
       <<~OUTPUT
-        O O O
-        O O O
+        OOO
+        OOO
       OUTPUT
     end
     run_valid_output_spec
@@ -41,8 +41,8 @@ describe 'BitmapEditor#run with invalid input' do
     end
     let(:expected_output) do
       <<~OUTPUT
-        O X O
-        O O O
+        OXO
+        OOO
       OUTPUT
     end
     run_valid_output_spec
@@ -59,8 +59,8 @@ describe 'BitmapEditor#run with invalid input' do
     end
     let(:expected_output) do
       <<~OUTPUT
-        O O O
-        O O O
+        OOO
+        OOO
       OUTPUT
     end
     run_valid_output_spec
@@ -76,8 +76,8 @@ describe 'BitmapEditor#run with invalid input' do
     end
     let(:expected_output) do
       <<~OUTPUT
-        O O X
-        O O X
+        OOX
+        OOX
       OUTPUT
     end
     run_valid_output_spec
@@ -93,8 +93,8 @@ describe 'BitmapEditor#run with invalid input' do
     end
     let(:expected_output) do
       <<~OUTPUT
-        O O O
-        O X X
+        OOO
+        OXX
       OUTPUT
     end
     run_valid_output_spec

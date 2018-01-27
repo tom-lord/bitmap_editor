@@ -20,8 +20,8 @@ describe 'BitmapImage' do
     it 'prints the bitmap to stdout' do
       expect { subject.show }.to output(
         <<~OUTPUT
-          O O O
-          O O O
+          OOO
+          OOO
         OUTPUT
       ).to_stdout
     end
