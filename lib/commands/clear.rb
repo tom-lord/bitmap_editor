@@ -7,7 +7,7 @@ module Commands
     end
 
     def update_image
-      @image.clear
+      image.clear
     end
   end
 end

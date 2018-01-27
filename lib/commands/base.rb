@@ -1,5 +1,6 @@
 module Commands
   class Base
+    attr_reader :line, :image
     def initialize(line, image)
       @line = line
       @image = image
@@ -8,7 +9,7 @@ module Commands
     def call
       validate
       update_image
-      @image
+      image
     end
 
     protected
@@ -19,11 +20,15 @@ module Commands
     end
 
     def arguments
-      @arguments ||= @line.split
+      @arguments ||= line.split
+    end
+
+    def arguments_without_command
+      arguments[1..-1]
     end
 
     def fail_with_error(message)
-      raise(InvalidInputError, "ERROR - #{message}: '#{@line}'")
+      raise(BitmapEditor::InvalidInputError, "ERROR - #{message}: '#{line}'")
     end
   end
 end

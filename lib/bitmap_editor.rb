@@ -1,9 +1,10 @@
 require_relative 'bitmap_image'
 require_relative 'commands/base'
 require_relative 'commands/clear'
+require_relative 'commands/init'
 
-InvalidInputError = Class.new(StandardError)
 class BitmapEditor
+  InvalidInputError = Class.new(StandardError)
   MAX_DIMENSION = 250
   def run(file)
     return puts 'please provide correct file' if file.nil? || !File.exist?(file)
@@ -13,8 +14,7 @@ class BitmapEditor
       fail_with_error('First command must be "I"', line) if index.zero? && line[0] != 'I'
       case line[0]
       when 'I' # I N M - Create a new M x N image with all pixels coloured white (O)
-        validate_line_i(line)
-        @image = BitmapImage.new(*line.split[1..-1])
+        @image = Commands::Init.new(line, @image).call
       when 'C' # C - Clears the table, setting all pixels to white (O)
         @image = Commands::Clear.new(line, @image).call
       when 'L' # 'L X Y C - Colours the pixel (X,Y) with colour C'
@@ -42,11 +42,6 @@ class BitmapEditor
   def validate_line_i(line)
     shared_validations(line, command: 'I', arg_count: 3)
     arguments = line.split
-    arguments[1..2].each do |coordinate|
-      unless coordinate =~ /\A\d{1,3}\z/ && coordinate.to_i.between?(1, MAX_DIMENSION)
-        fail_with_error("Input invalid or out of range (1-#{MAX_DIMENSION})", line)
-      end
-    end
   end
 
   def validate_line_l(line)
