@@ -11,7 +11,7 @@ class BitmapEditor
   InvalidInputError = Class.new(StandardError)
   MAX_DIMENSION = 250
   COMMANDS = {
-    # I N M - Create a new M x N image with all pixels coloured white (O)
+    # I M N - Create a new M x N image with all pixels coloured white (O)
     'I' => Commands::Init,
     # C - Clears the table, setting all pixels to white (O)
     'C' => Commands::Clear,

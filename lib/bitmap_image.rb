@@ -1,8 +1,8 @@
 class BitmapImage
-  attr_reader :height, :width, :data
-  def initialize(height, width)
-    @height = height.to_i
+  attr_reader :width, :height, :data
+  def initialize(width, height)
     @width = width.to_i
+    @height = height.to_i
     clear
   end
 

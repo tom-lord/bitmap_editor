@@ -18,7 +18,7 @@ describe 'BitmapEditor#run with invalid input' do
   context 'initialize and show' do
     let(:input_string) do
       <<~INPUT
-        I 2 3
+        I 3 2
         S
       INPUT
     end
@@ -34,7 +34,7 @@ describe 'BitmapEditor#run with invalid input' do
   context 'initialize, change pixel and show' do
     let(:input_string) do
       <<~INPUT
-        I 2 3
+        I 3 2
         L 2 1 X
         S
       INPUT
@@ -51,7 +51,7 @@ describe 'BitmapEditor#run with invalid input' do
   context 'initialize, change pixel, clear and show' do
     let(:input_string) do
       <<~INPUT
-        I 2 3
+        I 3 2
         L 2 1 X
         C
         S
@@ -69,7 +69,7 @@ describe 'BitmapEditor#run with invalid input' do
   context 'initialize, change vertical and show' do
     let(:input_string) do
       <<~INPUT
-        I 2 3
+        I 3 2
         V 3 1 2 X
         S
       INPUT
@@ -86,7 +86,7 @@ describe 'BitmapEditor#run with invalid input' do
   context 'initialize, change horizontal and show' do
     let(:input_string) do
       <<~INPUT
-        I 2 3
+        I 3 2
         H 2 3 2 X
         S
       INPUT

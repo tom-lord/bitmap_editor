@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'BitmapImage' do
-  subject { BitmapImage.new(height, width) }
+  subject { BitmapImage.new(width, height) }
   let(:width) { 3 }
   let(:height) { 2 }
 
