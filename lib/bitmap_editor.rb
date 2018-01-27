@@ -1,6 +1,7 @@
 require_relative 'bitmap_image'
 class BitmapEditor
   InvalidInputError = Class.new(StandardError)
+  MAX_DIMENSION = 250
   def run(file)
     return puts 'please provide correct file' if file.nil? || !File.exist?(file)
 
@@ -40,8 +41,8 @@ class BitmapEditor
     shared_validations(line, command: 'I', arg_count: 3)
     arguments = line.split
     arguments[1..2].each do |coordinate|
-      unless coordinate =~ /\A\d{1,3}\z/ && coordinate.to_i.between?(1, 250)
-        fail_with_error('Input invalid or out of range (1-250)', line)
+      unless coordinate =~ /\A\d{1,3}\z/ && coordinate.to_i.between?(1, MAX_DIMENSION)
+        fail_with_error("Input invalid or out of range (1-#{MAX_DIMENSION})", line)
       end
     end
   end
@@ -54,8 +55,8 @@ class BitmapEditor
     shared_validations(line, command: 'L', arg_count: 4)
     arguments = line.split
     arguments[1..2].each do |coordinate|
-      unless coordinate =~ /\A\d{1,3}\z/ && coordinate.to_i.between?(1, 250)
-        fail_with_error('Input invalid or out of range (1-250)', line)
+      unless coordinate =~ /\A\d{1,3}\z/ && coordinate.to_i.between?(1, MAX_DIMENSION)
+        fail_with_error("Input invalid or out of range (1-#{MAX_DIMENSION})", line)
       end
     end
     fail_with_error('Invalid colour', line) unless arguments[3] =~ /\A[A-Z]\z/
@@ -67,8 +68,8 @@ class BitmapEditor
     shared_validations(line, command: 'V', arg_count: 5)
     arguments = line.split
     arguments[1..3].each do |coordinate|
-      unless coordinate =~ /\A\d{1,3}\z/ && coordinate.to_i.between?(1, 250)
-        fail_with_error('Input invalid or out of range (1-250)', line)
+      unless coordinate =~ /\A\d{1,3}\z/ && coordinate.to_i.between?(1, MAX_DIMENSION)
+        fail_with_error("Input invalid or out of range (1-#{MAX_DIMENSION})", line)
       end
     end
     fail_with_error('Invalid colour', line) unless arguments[4] =~ /\A[A-Z]\z/
@@ -81,8 +82,8 @@ class BitmapEditor
     shared_validations(line, command: 'H', arg_count: 5)
     arguments = line.split
     arguments[1..3].each do |coordinate|
-      unless coordinate =~ /\A\d{1,3}\z/ && coordinate.to_i.between?(1, 250)
-        fail_with_error('Input invalid or out of range (1-250)', line)
+      unless coordinate =~ /\A\d{1,3}\z/ && coordinate.to_i.between?(1, MAX_DIMENSION)
+        fail_with_error("Input invalid or out of range (1-#{MAX_DIMENSION})", line)
       end
     end
     fail_with_error('Invalid colour', line) unless arguments[4] =~ /\A[A-Z]\z/
