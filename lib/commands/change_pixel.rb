@@ -14,7 +14,7 @@ module Commands
       fail_with_error('Outside current canvas') if arguments[2].to_i > @image.height
     end
 
-    def update_image
+    def perform
       image.change_pixel(*arguments_without_command)
     end
   end

@@ -8,7 +8,7 @@ module Commands
 
     def call
       validate
-      update_image
+      perform
       image
     end
 

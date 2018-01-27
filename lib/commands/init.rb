@@ -11,7 +11,7 @@ module Commands
       end
     end
 
-    def update_image
+    def perform
       @image = BitmapImage.new(*arguments_without_command)
     end
   end

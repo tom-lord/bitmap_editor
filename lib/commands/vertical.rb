@@ -15,7 +15,7 @@ module Commands
       fail_with_error('Invalid range') if arguments[2].to_i > arguments[3].to_i
     end
 
-    def update_image
+    def perform
       image.change_vertical(*arguments_without_command)
     end
   end

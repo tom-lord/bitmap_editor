@@ -6,7 +6,7 @@ module Commands
       super(command: 'S', arg_count: 1)
     end
 
-    def update_image
+    def perform
       image.show
     end
   end
